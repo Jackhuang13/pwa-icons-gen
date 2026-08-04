@@ -237,7 +237,7 @@ export default function App() {
                 </button>
               </div>
 
-              <div className="mt-4 grid grid-cols-2 gap-4 max-w-lg mx-auto">
+              <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-xl mx-auto">
                 {PRESET_TEMPLATES.map((preset) => (
                   <button
                     key={preset.id}
@@ -248,15 +248,15 @@ export default function App() {
                       }
                       setShowPresetModal(false);
                     }}
-                    className="flex flex-col items-center gap-2 rounded-xl border border-white/10 bg-[#0A0A0B] p-4 hover:border-blue-500 hover:bg-[#1c1c1e] transition-all text-center group"
+                    className="flex flex-col items-center gap-2 rounded-xl border border-white/10 bg-[#0A0A0B] p-3.5 hover:border-blue-500 hover:bg-[#1c1c1e] transition-all text-center group"
                   >
                     <div
-                      className="h-16 w-16 overflow-hidden rounded-xl p-1 shadow-md group-hover:scale-110 transition-transform"
+                      className="h-14 w-14 shrink-0 flex items-center justify-center overflow-hidden rounded-xl bg-black/20 p-1 shadow-md group-hover:scale-110 transition-transform [&>svg]:w-full [&>svg]:h-full [&>svg]:max-w-full [&>svg]:max-h-full [&>svg]:block"
                       dangerouslySetInnerHTML={{ __html: preset.svgString }}
                     />
                     <div>
-                      <h4 className="text-xs font-bold text-white">{preset.name}</h4>
-                      <p className="text-[10px] text-slate-400 font-mono">{preset.category}</p>
+                      <h4 className="text-xs font-bold text-white truncate">{preset.name}</h4>
+                      <p className="text-[10px] text-slate-400 font-mono truncate">{preset.category}</p>
                     </div>
                   </button>
                 ))}

@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Upload, Clipboard, Sparkles, Image as ImageIcon, Check, RefreshCw, Layers } from 'lucide-react';
+import { Upload, Clipboard, Sparkles, ChevronDown, ChevronRight } from 'lucide-react';
 import { PRESET_TEMPLATES } from '../utils/constants';
 
 interface ImageUploaderProps {
@@ -14,6 +14,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [pasteNotice, setPasteNotice] = useState<string | null>(null);
+  const [isPresetsOpen, setIsPresetsOpen] = useState(false);
 
   // Handle global paste event (Ctrl+V)
   useEffect(() => {
@@ -145,32 +146,48 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
       </div>
 
       {/* Built-in Preset Templates */}
-      <div className="min-w-0 w-full">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-mono uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+      <div className="min-w-0 w-full rounded-xl border border-white/10 bg-[#141415] overflow-hidden transition-all">
+        <button
+          type="button"
+          onClick={() => setIsPresetsOpen(!isPresetsOpen)}
+          className="w-full flex items-center justify-between p-3 text-left hover:bg-white/5 transition-colors cursor-pointer"
+        >
+          <span className="text-xs font-mono uppercase tracking-wider text-slate-300 flex items-center gap-1.5 font-semibold">
             <Sparkles className="h-3.5 w-3.5 text-blue-400" />
-            內建設計向量圖示範本 (點擊立即套用)
+            內建設計向量圖示範本 ({PRESET_TEMPLATES.length} 個範本)
           </span>
-        </div>
+          <div className="flex items-center gap-1 text-slate-400 text-xs font-sans">
+            <span>{isPresetsOpen ? '收起' : '展開選用'}</span>
+            {isPresetsOpen ? (
+              <ChevronDown className="h-4 w-4" />
+            ) : (
+              <ChevronRight className="h-4 w-4" />
+            )}
+          </div>
+        </button>
 
-        <div className="grid grid-cols-2 gap-3 max-w-lg">
-          {PRESET_TEMPLATES.map((preset) => (
-            <button
-              key={preset.id}
-              onClick={() => onImageSelected(preset.svgString, preset.bgColor)}
-              className="group flex flex-col items-center gap-2 rounded-xl border border-white/10 bg-[#141415] p-2.5 text-left transition-all hover:border-blue-500/50 hover:bg-[#1c1c1e] hover:scale-[1.02] shadow-sm"
-            >
-              <div
-                className="h-10 w-10 overflow-hidden rounded-lg p-1 shadow-md transition-transform group-hover:scale-105"
-                dangerouslySetInnerHTML={{ __html: preset.svgString }}
-              />
-              <div className="w-full text-center min-w-0">
-                <p className="truncate text-xs font-semibold text-slate-200">{preset.name}</p>
-                <p className="truncate text-[10px] text-slate-400 font-mono">{preset.category}</p>
-              </div>
-            </button>
-          ))}
-        </div>
+        {isPresetsOpen && (
+          <div className="p-3 pt-0 border-t border-white/5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-3">
+              {PRESET_TEMPLATES.map((preset) => (
+                <button
+                  key={preset.id}
+                  onClick={() => onImageSelected(preset.svgString, preset.bgColor)}
+                  className="group flex flex-col items-center gap-2 rounded-xl border border-white/10 bg-[#0A0A0B] p-2.5 text-left transition-all hover:border-blue-500/50 hover:bg-[#1c1c1e] hover:scale-[1.02] shadow-sm cursor-pointer"
+                >
+                  <div
+                    className="h-12 w-12 shrink-0 flex items-center justify-center overflow-hidden rounded-xl bg-black/20 p-1 shadow-md transition-transform group-hover:scale-105 [&>svg]:w-full [&>svg]:h-full [&>svg]:max-w-full [&>svg]:max-h-full [&>svg]:block"
+                    dangerouslySetInnerHTML={{ __html: preset.svgString }}
+                  />
+                  <div className="w-full text-center min-w-0">
+                    <p className="truncate text-xs font-semibold text-slate-200">{preset.name}</p>
+                    <p className="truncate text-[10px] text-slate-400 font-mono">{preset.category}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
