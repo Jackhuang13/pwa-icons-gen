@@ -4,19 +4,17 @@ import path from 'path';
 import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
-export default defineConfig(() => {
-  const isProd = process.env.NODE_ENV === 'production';
+export default defineConfig(({ mode }) => {
+  const isProd = mode === 'production';
   const base = isProd ? '/pwa-icons-gen/' : '/';
 
   return {
     base,
-    define: {
-      __APP_VERSION__: JSON.stringify(process.env.npm_package_version || '1.0.0'),
-    },
     plugins: [
       react(),
       tailwindcss(),
       VitePWA({
+        injectRegister: 'auto',
         registerType: 'prompt',
         includeAssets: [
           'pwa-192x192.png',
@@ -25,6 +23,9 @@ export default defineConfig(() => {
           'pwa-maskable-512x512.png',
           'favicon.ico',
         ],
+        workbox: {
+          globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2,jpg}'],
+        },
         manifest: {
           name: 'PWA 圖示產生器',
           short_name: 'PWA Icons',
@@ -33,8 +34,9 @@ export default defineConfig(() => {
           background_color: '#0f172a',
           display: 'standalone',
           orientation: 'any',
-          start_url: './',
-          scope: './',
+          start_url: base,
+          scope: base,
+          id: base,
           icons: [
             {
               src: 'pwa-192x192.png',
