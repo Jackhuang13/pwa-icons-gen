@@ -1,0 +1,6 @@
+{
+  "name": "PWA 圖示產生器",
+  "description": "強大、靈活的 PWA 圖示與標誌產生器，支援圖像上傳裁剪、Safe-zone 遮罩預覽、自動生成標準與 Maskable 多尺寸圖示、Manifest Snippet 與 Zip 打包下載。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

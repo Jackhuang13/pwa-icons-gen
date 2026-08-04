@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#1e1b4b" />
+      <stop offset="100%" stop-color="#311b92" />
+    </linearGradient>
+    <linearGradient id="shield-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="50%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#d946ef" />
+    </linearGradient>
+    <linearGradient id="accent-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#818cf8" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="512" height="512" rx="112" fill="url(#bg-grad)" />
+
+  <!-- Outer Safe Zone Circle Subtle Guide (Maskable Representation) -->
+  <circle cx="256" cy="256" r="204" fill="none" stroke="#6366f1" stroke-width="2" stroke-dasharray="8 8" opacity="0.3" />
+
+  <!-- Main App Frame -->
+  <rect x="112" y="112" width="288" height="288" rx="64" fill="url(#shield-grad)" filter="url(#glow)" />
+
+  <!-- Inner Layer Cutout -->
+  <rect x="136" y="136" width="240" height="240" rx="48" fill="#0f172a" opacity="0.85" />
+
+  <!-- Lightning / PWA Symbol -->
+  <path d="M280 168 L184 280 H256 L232 344 L328 232 H256 Z" fill="url(#accent-grad)" />
+
+  <!-- Corner Dots / Grid indicators for PWA sizes -->
+  <circle cx="168" cy="168" r="8" fill="#38bdf8" />
+  <circle cx="344" cy="168" r="8" fill="#818cf8" />
+  <circle cx="168" cy="344" r="8" fill="#c084fc" />
+  <circle cx="344" cy="344" r="8" fill="#f472b6" />
+</svg>
