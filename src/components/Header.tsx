@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Layers, Sparkles, HelpCircle, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import packageJson from '../../package.json';
 
 interface HeaderProps {
   onOpenPresets: () => void;
@@ -24,7 +25,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPresets }) => {
                   PWA Icons Gen
                 </h1>
                 <span className="inline-flex items-center rounded bg-blue-500/10 px-2 py-0.5 text-[10px] font-mono text-blue-400 border border-blue-500/20 shrink-0">
-                  v1.0.0
+                  v{packageJson.version}
                 </span>
               </div>
               <p className="hidden text-xs text-slate-400 sm:block truncate">
