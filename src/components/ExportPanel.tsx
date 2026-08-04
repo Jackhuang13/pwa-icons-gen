@@ -11,6 +11,17 @@ interface ExportPanelProps {
   onToggleSelectAll: (selectAll: boolean) => void;
 }
 
+
+function escapeHtml(unsafe: string): string {
+  if (!unsafe) return '';
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 export const ExportPanel: React.FC<ExportPanelProps> = ({
   exportItems,
   manifestConfig,
@@ -63,9 +74,9 @@ export const ExportPanel: React.FC<ExportPanelProps> = ({
       zip.file('manifest.webmanifest', JSON.stringify(manifestObject, null, 2));
 
       // 3. Add HTML Head tags snippet file
-      const htmlSnippet = `<!-- PWA Head Snippet for ${manifestConfig.name} -->
+      const htmlSnippet = `<!-- PWA Head Snippet for ${escapeHtml(manifestConfig.name)} -->
 <link rel="manifest" href="/manifest.webmanifest" />
-<meta name="theme-color" content="${manifestConfig.themeColor}" />
+<meta name="theme-color" content="${escapeHtml(manifestConfig.themeColor)}" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />

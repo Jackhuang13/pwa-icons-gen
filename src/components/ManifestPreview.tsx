@@ -7,6 +7,17 @@ interface ManifestPreviewProps {
   onChangeConfig: (newConfig: ManifestConfig) => void;
 }
 
+
+function escapeHtml(unsafe: string): string {
+  if (!unsafe) return '';
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 export const ManifestPreview: React.FC<ManifestPreviewProps> = ({
   config,
   onChangeConfig,
@@ -73,10 +84,10 @@ export const ManifestPreview: React.FC<ManifestPreviewProps> = ({
   // Generate HTML Header Snippet
   const htmlSnippet = `<!-- PWA Meta & Favicon Tags -->
 <link rel="manifest" href="/manifest.webmanifest" />
-<meta name="theme-color" content="${config.themeColor}" />
+<meta name="theme-color" content="${escapeHtml(config.themeColor)}" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="${config.shortName || config.name}" />
+<meta name="apple-mobile-web-app-title" content="${escapeHtml(config.shortName || config.name)}" />
 
 <!-- Apple Touch Icon -->
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
